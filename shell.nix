@@ -1,29 +1,27 @@
 let
-	pkgs = import <nixpkgs> {};
+  pkgs = import <nixpkgs> {};
 in
 pkgs.mkShell {
-	packages = with pkgs; [
+  packages = with pkgs; [
     rustup
-		rust-analyzer
-		rustfmt
-		clippy
-		gcc
-		alsa-lib
-		dbus
-		pkg-config
-		udev
-		wayland
-		libxkbcommon
-	];
+    rust-analyzer
+    rustfmt
+    gcc
+    alsa-lib
+    dbus
+    pkg-config
+    udev
+    wayland
+    libxkbcommon
+  ];
 
-    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-      # stdenv.cc.cc
-      pkgs.libxkbcommon
-  		pkgs.vulkan-loader
-    ];
+  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+    pkgs.libxkbcommon
+    pkgs.vulkan-loader
+  ];
 
-	env = { 
-		RUST_BACKTRACE = "full";
-		WINIT_UNIX_BACKEND="wayland";
-	}; 
+  env = { 
+    RUST_BACKTRACE = "full";
+    WINIT_UNIX_BACKEND="wayland";
+  }; 
 }
